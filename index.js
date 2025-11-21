@@ -2,18 +2,18 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import AuthRoutes from "./src/routes/auth.routes.js";
+import { dbConnection } from "./src/config/db.js";
 
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
-// Routes
 app.use("/auth", AuthRoutes);
 
-// Test Route
 app.get("/", (req, res) => {
   res.json({ message: "Server OK" });
 });
